@@ -1,0 +1,9 @@
+query GetUsers {
+    list: getUsers {
+        id
+        fullname
+        avatar
+        isSelf
+        email
+    }
+}

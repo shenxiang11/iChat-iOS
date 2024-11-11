@@ -1,0 +1,3 @@
+mutation ConfirmScanLogin($deviceUuid: String!) {
+  scanSignin(deviceUuid: $deviceUuid)
+}

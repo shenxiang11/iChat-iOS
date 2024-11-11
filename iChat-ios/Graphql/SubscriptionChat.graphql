@@ -1,0 +1,32 @@
+subscription SubscriptionChat {
+  chat {
+    __typename
+    ...on CreatedChat {
+         chat: data {
+        id
+        name
+        owner {
+          id
+        }
+      }
+    }
+    ...on ChatNameChanged {
+      chat: data {
+        id
+        name
+      }
+    }
+    ...on ChatOwnerChanged {
+      chat: data {
+        owner {
+          id
+        }
+      }
+    }
+    ...on ChatDeleted {
+      data: data {
+        id
+      }
+    }
+    }
+}

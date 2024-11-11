@@ -1,0 +1,8 @@
+subscription SubscriptionAnyMessage {
+  allMessages {
+    ...on Message {
+      id
+      content
+    }
+  }
+}

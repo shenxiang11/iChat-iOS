@@ -1,0 +1,14 @@
+subscription SubscriptionScanLogin($deviceUuid: String!) {
+  scanLogin(deviceUuid: $deviceUuid) {
+    ...on QrcodeScanned {
+      deviceUuid
+    }
+    ...on QrcodeConfirmed {
+      token
+      deviceUuid
+    }
+    ...on QrcodeCancel {
+      deviceUuid
+    }
+  }
+}

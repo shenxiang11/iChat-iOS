@@ -1,0 +1,7 @@
+subscription SubscriptionMessage($chatId: Int!) {
+  message(chatId: $chatId) {
+    ...on Message {
+      ...MessageDetail
+    }
+  }
+}

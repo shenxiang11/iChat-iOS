@@ -13,5 +13,6 @@ struct iChat_iosApp: App {
         WindowGroup {
             ContentView()
         }
+        .environmentObject(AppViewModel.shared)
     }
 }

@@ -1,0 +1,31 @@
+query GetChats {
+  list: getChats {
+    id
+    name
+    displayName
+    unreadCount
+    type
+    owner {
+      id
+    }
+    original9Users {
+      id
+      fullname
+      avatar
+      isSelf
+    }
+    members {
+      id
+      fullname
+    }
+    latestMessage {
+      id
+      type
+      user {
+        id
+        fullname
+      }
+      content
+    }
+  }
+}

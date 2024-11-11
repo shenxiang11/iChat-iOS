@@ -1,0 +1,9 @@
+mutation Signin($req: SigninUser!) {
+  auth: signin(input: $req) {
+    token,
+    user {
+        id,
+        fullname
+    }
+  }
+}

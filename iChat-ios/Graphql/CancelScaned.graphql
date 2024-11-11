@@ -1,0 +1,3 @@
+mutation CancelScaned($deviceUuid: String!) {
+  cancelScanned(deviceUuid: $deviceUuid)
+}

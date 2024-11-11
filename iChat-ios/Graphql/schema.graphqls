@@ -1,0 +1,177 @@
+schema {
+  query: QueryRoot
+  mutation: MutationRoot
+  subscription: SubscriptionRoot
+}
+
+"""
+A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
+"""
+directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+"""
+A directive used by the Apollo iOS code generation engine to generate custom import statements in operation or fragment definition files. An import statement to import a module with the name provided in the `module` argument will be added to the generated definition file.
+"""
+directive @import(
+  """The name of the module to import."""
+  module: String!
+) repeatable on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+"""
+Directs the executor to defer this fragment when the `if` argument is true or undefined.
+"""
+directive @defer(
+  """Deferred when true or undefined."""
+  if: Boolean
+
+  """Unique name"""
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+union AppEvent = CreatedChat | ChatOwnerChanged | ChatNameChanged | ChatDeleted | Message | QrcodeScanned | QrcodeCancel | QrcodeConfirmed
+
+type AuthOutput {
+  token: String!
+  userId: Int!
+  user: User!
+}
+
+type Chat {
+  id: Int!
+  name: String!
+  ownerId: Int!
+  type: ChatType!
+  createdAt: DateTime!
+  displayName: String!
+  original9Users: [User!]!
+  isOwner: Boolean!
+  owner: User!
+  latestMessage: Message
+  members: [User!]!
+  unreadCount: Int!
+}
+
+type ChatDeleted {
+  data: Chat!
+}
+
+type ChatNameChanged {
+  data: Chat!
+}
+
+type ChatOwnerChanged {
+  data: Chat!
+}
+
+enum ChatType {
+  PRIVATE
+  GROUP
+}
+
+input CreateMessage {
+  chatId: Int!
+  content: String!
+}
+
+input CreateUser {
+  email: String!
+  code: String!
+  password: String!
+  fullname: String!
+}
+
+type CreatedChat {
+  data: Chat!
+}
+
+"""
+Implement the DateTime<Utc> scalar
+
+The input/output is a string in RFC3339 format.
+"""
+scalar DateTime
+
+type Message {
+  id: Int!
+  chatId: Int!
+  userId: Int!
+  type: MessageType!
+  content: String!
+  createdAt: DateTime!
+  user: User!
+  isMine: Boolean!
+}
+
+type MessageOutput {
+  message: String!
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  VIDEO
+  AUDIO
+  FILE
+}
+
+type MutationRoot {
+  signup(input: CreateUser!): User!
+  cancelScanned(deviceUuid: String!): Boolean!
+  scanned(deviceUuid: String!): Boolean!
+  scanSignin(deviceUuid: String!): Boolean!
+  signin(input: SigninUser!): AuthOutput!
+  sendEmail(input: SendEmail!): MessageOutput!
+  updateChatName(chatId: Int!, name: String!): Boolean!
+  dropChat(id: Int!): Boolean!
+  createChat(memberIds: [Int!]!): Chat!
+  chatRead(chatId: Int!): Boolean!
+  sendMessage(input: CreateMessage!): Message!
+}
+
+type QrcodeCancel {
+  deviceUuid: String!
+}
+
+type QrcodeConfirmed {
+  deviceUuid: String!
+  token: String!
+}
+
+type QrcodeScanned {
+  deviceUuid: String!
+}
+
+type QueryRoot {
+  getUsers: [User!]!
+  getSelf: User!
+  getChat(id: Int!): Chat!
+  getChats: [Chat!]!
+  getMessages(chatId: Int!, cursorId: Int): [Message!]!
+  getSts: String!
+}
+
+input SendEmail {
+  email: String!
+}
+
+input SigninUser {
+  email: String!
+  password: String!
+}
+
+type SubscriptionRoot {
+  scanLogin(deviceUuid: String!): AppEvent!
+  allMessages: AppEvent!
+  message(chatId: Int!): AppEvent!
+  chat: AppEvent!
+}
+
+type User {
+  id: Int!
+  fullname: String!
+  email: String!
+  passwordHash: String
+  avatar: String
+  createdAt: DateTime!
+  isSelf: Boolean!
+}

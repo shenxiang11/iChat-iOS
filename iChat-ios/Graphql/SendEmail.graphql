@@ -1,0 +1,5 @@
+mutation SendEmail($req: SendEmail!) {
+    result: sendEmail(input: $req) {
+        message
+    }
+}

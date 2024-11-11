@@ -1,0 +1,6 @@
+mutation SendMessage($req: CreateMessage!) {
+  message: sendMessage(input: $req) {
+    id
+    content
+  }
+}

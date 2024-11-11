@@ -1,0 +1,16 @@
+query GetChat($id: Int!) {
+  getChat(id: $id) {
+    id
+    name
+    ownerId
+    type
+    isOwner
+    members {
+      id
+      fullname
+      avatar
+      email
+      isSelf
+    }
+  }
+}

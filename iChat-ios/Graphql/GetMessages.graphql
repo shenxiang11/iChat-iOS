@@ -1,0 +1,29 @@
+query GetMessages($chatId: Int!, $cursorId: Int) {
+  chat: getChat(id: $chatId) {
+    id
+    name
+    type
+    original9Users {
+      id
+      fullname
+      avatar
+      isSelf
+    }
+  }
+  messages: getMessages(chatId: $chatId, cursorId: $cursorId) {
+    ...MessageDetail
+  }
+}
+
+fragment MessageDetail on Message {
+    id
+    content
+    isMine
+    user {
+      id
+      fullname
+      avatar
+      email
+    }
+    createdAt
+}

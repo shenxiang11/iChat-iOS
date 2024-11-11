@@ -1,0 +1,3 @@
+mutation SetReaded($chatId: Int!) {
+    chatRead(chatId: $chatId)
+}

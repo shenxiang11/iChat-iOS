@@ -1,0 +1,3 @@
+mutation ScannedQRCode($deviceUuid: String!) {
+  scanned(deviceUuid: $deviceUuid)
+}

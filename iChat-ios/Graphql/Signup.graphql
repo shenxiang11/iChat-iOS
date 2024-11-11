@@ -1,0 +1,6 @@
+mutation SignUp($req: CreateUser!) {
+    signup(input: $req) {
+        id,
+        fullname,
+    }
+}

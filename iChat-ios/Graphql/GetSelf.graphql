@@ -1,0 +1,8 @@
+query GetUser {
+  getSelf {
+    id
+    fullname
+    avatar
+    email
+  }
+}

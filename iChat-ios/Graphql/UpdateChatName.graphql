@@ -1,0 +1,3 @@
+mutation UpdateChatName($id: Int!, $name: String!) {
+    updateChatName(chatId: $id, name: $name)
+}

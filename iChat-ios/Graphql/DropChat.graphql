@@ -1,0 +1,3 @@
+mutation DropChat($id: Int!) {
+    dropChat(id: $id)
+}
